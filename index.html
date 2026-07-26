@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dedicatoria Animada</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#000;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+body.fondo-activo{
+  background:url('https://i.pinimg.com/originals/35/21/56/352156b5f968a043c346e7225eeec35d.gif') center/cover;
+}
+
+.content{
+  text-align: center;
+      color: #fff;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 1rem;
+      max-width: 90%;
+      font-size: 1.5rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      z-index: 1;
+      position: relative;
+      display: none;
+    }
+
+button{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:2rem;
+  padding:1rem 2rem;
+  border:none;
+  border-radius:20px;
+  background:#222;
+  color:#fff;
+  cursor:pointer;
+}
+
+.particle{
+  position:fixed;
+  width:15px;height:15px;
+  background:red;
+  border-radius:50%;
+  animation:explode 1s forwards;
+}
+
+@keyframes explode{
+  to{
+    transform:translate(var(--x),var(--y));
+    opacity:0;
+  }
+}
+
+/* SEGUNDA PANTALLA */
+#segunda{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url('fondo.gif') no-repeat center center;
+  background-size: cover;
+  z-index:50;
+  text-align:center;
+}
+
+.img-audio{
+  width:120px;
+  margin:10px;
+  cursor:pointer;
+  border-radius:10px;
+  transition:transform .3s;
+}
+/* Activar posicion libre */
+.img-audio{
+  position:absolute;
+}
+
+/* Posiciones personalizadas */
+#img1{ top:80px; left:20px; }
+#img2{ top:80px; right:20px; }
+#img3{ bottom:120px; right:30px; }
+#img4{ bottom:120px; left:30px; }
+#img5{ bottom:120px; right:30px; }
+.img-audio:hover{transform:scale(1.1);}
+
+#btn-cumple{
+  position:absolute;
+  bottom:-283px;
+  left:50%;
+  transform:translateX(-50%);
+  
+  background:none;
+  border:none;
+  padding:0;
+  
+  font-size:2.5rem;
+  cursor:pointer;
+  transition:transform 0.2s;
+}
+
+#btn-cumple:hover{
+  transform:translateX(-50%) scale(1);
+}
+</style>
+</head>
+
+<body>
+
+<button id="start-btn">Presiona</button>
+
+<div class="content" id="texto"></div>
+
+<img id="final-gif"
+src="https://i.pinimg.com/originals/93/fb/bf/93fbbf5bce149512cbc6009e08c17a19.gif"
+style="display:none;position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:200px;cursor:pointer;z-index:20;">
+
+<!-- SEGUNDA PANTALLA -->
+<div id="segunda">
+
+  <div style="margin-top:80px;">
+  <img src="1.jpeg" id="img1" class="img-audio" data-audio="audio1">
+  <img src="2.jpeg" id="img2" class="img-audio" data-audio="audio2">
+  <img src="3.jpeg" id="img3" class="img-audio" data-audio="audio3">
+  <img src="4.jpeg" id="img4" class="img-audio" data-audio="audio4">
+</div>
+
+  <button id="btn-cumple">❤️</button>
+  <div id="video-container" style="
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0, 0, 0, 0);
+  z-index:100;
+  justify-content:center;
+  align-items:center;
+">
+
+  <iframe id="yt-video"
+    width="90%"
+    height="80%"
+    src=""
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
+
+  <button id="cerrar-video" style="
+    position:absolute;
+    background:#ff0000;
+    top:20px;
+    right:20px;
+    font-size:1.5rem;
+    padding:5px 10px;
+  ">✖</button>
+
+</div>
+
+</div>
+
+<!-- AUDIOS -->
+<audio id="audio1" src="1.m4a"></audio>
+<audio id="audio2" src="2.m4a"></audio>
+<audio id="audio3" src="3.m4a"></audio>
+<audio id="audio4" src="4.m4a"></audio>
+
+<script>
+const text=`No existen palabras suficientes para describir lo que siento por ti.  
+Desde que llegaste a mi vida, todo tiene más color, más sentido, más magia.  
+Tu mirada me da paz, tu voz me da fuerza y tu sonrisa me da esperanza.  
+Eres el sueño que nunca quiero despertar, el abrazo que siempre busco y el amor que siempre esperé.  
+Gracias por ser mi refugio, mi alegría y mi razón de ser.  
+Te amo con cada parte de mi alma, y cada día que pasa, mi amor por ti solo crece.  
+Eres mi todo, mi siempre, mi infinito.`;
+
+let i=0;
+function escribir(){
+  if(i<text.length){
+    document.getElementById("texto").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(escribir,40);
+  }else{
+    document.getElementById("final-gif").style.display="block";
+  }
+}
+
+document.getElementById("start-btn").onclick=function(){
+  this.style.display="none";
+  document.getElementById("texto").style.display="block";
+  document.body.classList.add("fondo-activo");
+  escribir();
+};
+
+/* CLICK GATITO → CAMBIO */
+document.getElementById("final-gif").onclick = function() {
+  // Ocultar todo lo anterior
+  document.getElementById("texto").style.display = "none";
+  document.getElementById("final-gif").style.display = "none";
+  document.body.classList.remove("fondo-activo");
+
+  // Cambiar fondo directamente (por si acaso)
+  document.body.style.background = "none";
+
+  // Mostrar nueva pantalla
+  document.getElementById("segunda").style.display = "block";
+};
+
+/* AUDIOS */
+document.querySelectorAll(".img-audio").forEach(img=>{
+  img.onclick=()=>{
+    document.querySelectorAll("audio").forEach(a=>{
+      a.pause();
+      a.currentTime=0;
+    });
+    document.getElementById(img.dataset.audio).play();
+  };
+});
+
+/* BOTON CUMPLE */
+document.getElementById("btn-cumple").onclick = function() {
+  const video = document.getElementById("yt-video");
+  const container = document.getElementById("video-container");
+
+  // IMPORTANTE: usa embed
+  video.src = "https://www.youtube.com/embed/VIDEO_ID?autoplay=1";
+  container.style.display = "flex";
+};
+
+// Botón cerrar
+document.getElementById("cerrar-video").onclick = function() {
+  const video = document.getElementById("yt-video");
+  const container = document.getElementById("video-container");
+
+  video.src = ""; // detener video
+  container.style.display = "none";
+};
+</script>
+
+</body>
+</html>
